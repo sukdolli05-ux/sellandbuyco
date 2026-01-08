@@ -1,15 +1,17 @@
 import os
+from pydantic_settings import BaseSettings
 
-class Settings:
-    # Auth / Security
-    JWT_SECRET: str = os.getenv("JWT_SECRET", "dev-secret-change-me")
+class Settings(BaseSettings):
+    JWT_SECRET: str = os.getenv("JWT_SECRET", "dev-secret")
     JWT_EXPIRE_MIN: int = int(os.getenv("JWT_EXPIRE_MIN", "60"))
 
-    # Cloudflare Turnstile
-    TURNSTILE_SITE_KEY: str = os.getenv("TURNSTILE_SITE_KEY", "")
-    TURNSTILE_SECRET_KEY: str = os.getenv("TURNSTILE_SECRET_KEY", "")
+    # fee
+    TRADE_FEE_RATE: float = float(os.getenv("TRADE_FEE_RATE", "0.20"))
 
-    # Database (dev default)
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./dev.db")
+    # db
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL",
+        "sqlite:////workspaces/sellandbuyco/backend/dev.db",
+    )
 
 settings = Settings()
